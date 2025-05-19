@@ -2,7 +2,7 @@ import React from 'react'
 import { Route , Routes} from "react-router-dom"
 import { fromJSON } from 'postcss'
 import LandingPage from './pages/LandingPage'
-import ComingSoonPage from './pages/ComingSoonPage'
+
 
 const App = () => {
   return (
