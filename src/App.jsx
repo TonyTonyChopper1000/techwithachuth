@@ -9,7 +9,6 @@ const App = () => {
     <div>
        <Routes>
         <Route path="/"element={<LandingPage />} />
-        <Route path='/comingsoon' element={<ComingSoonPage />} />
         </Routes> 
     </div>
   )
