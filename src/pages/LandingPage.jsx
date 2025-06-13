@@ -1,48 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom"
 
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeProject, setActiveProject] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 20,
+        y: (e.clientY / window.innerHeight) * 20
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution built with React and Node.js, featuring real-time inventory management and secure payment processing.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop"
-    },
-    {
-      title: "Task Management App",
-      description: "A collaborative project management tool with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      tech: ["Vue.js", "Firebase", "Tailwind CSS"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop"
-    },
-    {
-      title: "Analytics Dashboard",
-      description: "A comprehensive data visualization dashboard for business intelligence with interactive charts and real-time data processing.",
-      tech: ["React", "D3.js", "Python", "PostgreSQL"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
-    }
-  ];
-
-  const skills = [
-    { name: "Frontend Development", level: 95 },
-    { name: "Backend Development", level: 88 },
-    { name: "UI/UX Design", level: 85 },
-    { name: "Database Design", level: 82 },
-    { name: "Mobile Development", level: 78 }
-  ];
+  // Mock Link component for demo
+  const Link = ({ to, children, className, ...props }) => (
+    <a href={to} className={className} {...props}>
+      {children}
+    </a>
+  );
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,8 +81,15 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen flex items-center">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section id="home" className="pt-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen flex items-center relative">
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-200/20 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-32 right-20 w-40 h-40 bg-purple-200/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-pink-200/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -101,318 +97,152 @@ export default function LandingPage() {
                 <span className="block text-blue-600">Enthusiastic</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              "As Long As I Live, There Are Infinite Chances!" - Luffy
+                "It's not about whether I can or not. I'm gonna do it because I want to."
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/works" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   View My Work
                 </Link>
-                <Link to="/blogs" className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
-                  Fun With Blogs
+                <Link to="/about" className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
+                  Who is Achuth !?
                 </Link>
               </div>
             </div>
             
             <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-              <div className="relative">
-                <div className="w-80 h-80 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                  <div className="w-72 h-72 bg-white rounded-full flex items-center justify-center shadow-2xl">
-                    <img 
-                      src="https://free-3dtextureshd.com/wp-content/uploads/2025/01/96.jpg.webp" 
-                      alt="Profile" 
-                      className="w-64 h-64 object-cover rounded-full"
-                    />
-                  </div>
-                </div>
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full animate-pulse"></div>
-                <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-pink-400 rounded-full animate-bounce"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-      {/* <section id="about" className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">About Me</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Crafting Digital Excellence</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                With over 5 years of experience in web development, I specialize in creating 
-                robust, scalable applications that solve real-world problems. My journey began 
-                with a fascination for how things work, which led me to pursue computer science 
-                and eventually specialize in full-stack development.
-              </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                I believe in the power of clean, maintainable code and user-centered design. 
-                Every project I work on is an opportunity to learn something new and push the 
-                boundaries of what's possible on the web.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
-                  <div className="text-gray-600">Projects Completed</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
-                  <div className="text-gray-600">Years Experience</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl">
-                <h4 className="text-xl font-semibold text-gray-900 mb-4">What I Do</h4>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    Frontend Development with React, Vue.js
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    Backend APIs with Node.js, Python
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    Database Design & Optimization
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    Mobile App Development
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    UI/UX Design & Prototyping
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Projects Section */}
-      {/* <section id="projects" className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Here are some of my recent projects that showcase my skills and passion for development.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden group"
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-blue-600 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
-                      <span 
-                        key={techIndex}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-3">
-                    <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                      Live Demo
-                    </button>
-                    <button className="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:border-gray-400 transition-colors">
-                      Source Code
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* Skills Section */}
-      {/* <section id="skills" className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Skills & Expertise</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Technical Skills</h3>
-              <div className="space-y-6">
-                {skills.map((skill, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium">{skill.name}</span>
-                      <span className="text-blue-600 font-semibold">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div 
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Technologies</h3>
-              <div className="grid grid-cols-3 gap-4">
-                {['React', 'Vue.js', 'Node.js', 'Python', 'MongoDB', 'PostgreSQL', 'AWS', 'Docker', 'Git'].map((tech, index) => (
+              <div className="relative flex items-center justify-center">
+                {/* Main Profile Container */}
+                <div className="relative">
+                  {/* Rotating Ring 1 - Outer */}
+                  <div className="absolute inset-0 w-96 h-96 rounded-full border-4 border-dashed border-blue-300/50 animate-spin" style={{ animationDuration: '20s' }}></div>
+                  
+                  {/* Rotating Ring 2 - Middle */}
+                  <div className="absolute inset-4 w-88 h-88 rounded-full border-2 border-purple-300/40" style={{ 
+                    animation: 'spin 15s linear infinite reverse',
+                    borderStyle: 'dashed'
+                  }}></div>
+                  
+                  {/* Main Profile Circle with Mouse Parallax */}
                   <div 
-                    key={index}
-                    className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 cursor-pointer"
+                    className="w-80 h-80 mx-auto bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl"
+                    style={{
+                      transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`
+                    }}
                   >
-                    <div className="font-semibold">{tech}</div>
+                    <div className="w-72 h-72 bg-white rounded-full flex items-center justify-center shadow-inner relative overflow-hidden">
+                      <img 
+                        src="https://free-3dtextureshd.com/wp-content/uploads/2025/01/96.jpg.webp" 
+                        alt="Profile" 
+                        className="w-64 h-64 object-cover rounded-full hover:scale-110 transition-transform duration-700"
+                      />
+                      
+                      {/* Overlay gradient on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
                   </div>
-                ))}
-              </div>
-              
-              <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Always Learning</h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Technology evolves rapidly, and I make it a priority to stay current with the latest 
-                  tools, frameworks, and best practices. I'm currently exploring AI/ML integration 
-                  in web applications and advanced cloud architectures.
-                </p>
+                  
+                  {/* Floating Data-themed Icons */}
+                  <div 
+                    className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg animate-bounce"
+                    style={{
+                      transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`,
+                      animationDelay: '0s',
+                      animationDuration: '3s'
+                    }}
+                  >
+                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                  </div>
+                  
+                  <div 
+                    className="absolute -bottom-10 -left-10 w-20 h-20 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg"
+                    style={{
+                      transform: `translate(${mousePosition.x * -0.2}px, ${mousePosition.y * -0.2}px)`,
+                      animation: 'bounce 4s infinite'
+                    }}
+                  >
+                    <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                  </div>
+                  
+                  <div 
+                    className="absolute top-1/4 -left-12 w-12 h-12 bg-gradient-to-br from-pink-400 to-red-500 rounded-lg flex items-center justify-center shadow-lg"
+                    style={{
+                      transform: `translate(${mousePosition.x * 0.15}px, ${mousePosition.y * 0.15}px)`,
+                      animation: 'pulse 3s infinite'
+                    }}
+                  >
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
+                  
+                  <div 
+                    className="absolute bottom-1/3 -right-6 w-14 h-14 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg"
+                    style={{
+                      transform: `translate(${mousePosition.x * -0.1}px, ${mousePosition.y * -0.1}px)`,
+                      animation: 'bounce 2.5s infinite reverse'
+                    }}
+                  >
+                    <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </div>
+                  
+                  {/* Orbiting Elements */}
+                  <div className="absolute inset-0 w-96 h-96">
+                    <div 
+                      className="absolute w-6 h-6 bg-blue-500 rounded-full shadow-lg"
+                      style={{
+                        top: '20%',
+                        left: '80%',
+                        animation: 'orbit 8s linear infinite',
+                        transformOrigin: '-140px 140px'
+                      }}
+                    ></div>
+                    <div 
+                      className="absolute w-4 h-4 bg-purple-500 rounded-full shadow-lg"
+                      style={{
+                        top: '70%',
+                        left: '15%',
+                        animation: 'orbit 12s linear infinite reverse',
+                        transformOrigin: '140px -140px'
+                      }}
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section> */}
 
-      {/* Contact Section */}
-      {/* <section id="contact" className="py-20 bg-gray-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Let's Work Together</h2>
-            <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life.
-            </p>
-          </div>
+        {/* Custom CSS animations */}
+        <style jsx>{`
+          @keyframes orbit {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-8">Get In Touch</h3>
-              <div className="space-y-6">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold">Email</div>
-                    <div className="text-gray-300">john.doe@example.com</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold">Phone</div>
-                    <div className="text-gray-300">+1 (555) 123-4567</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold">Location</div>
-                    <div className="text-gray-300">San Francisco, CA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Email</label>
-                  <input 
-                    type="email" 
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Message</label>
-                  <textarea 
-                    rows="4"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
-                    placeholder="Tell me about your project..."
-                  ></textarea>
-                </div>
-                <button 
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 hover:shadow-lg"
-                  onClick={() => alert('Message sent! (Demo only)')}
-                >
-                  Send Message
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Footer */}
-      {/* <footer className="bg-gray-800 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-center md:text-left mb-4 md:mb-0">
-              <p>&copy; Achuth Dintakurthi. All rights reserved.</p>
-            </div>
-            <div className="flex space-x-6">
-              <a href="#" target='_blank' className="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
-              <a href="#" target='_blank' className="text-gray-400 hover:text-white transition-colors">GitHub</a>
-              <a href="#" target='_blank' className="text-gray-400 hover:text-white transition-colors">Medium</a>
-            </div>
-          </div>
-        </div>
-      </footer> */}
+          @keyframes float {
+            0%, 100% {
+              transform: translateY(0px);
+            }
+            50% {
+              transform: translateY(-20px);
+            }
+          }
+          
+          .animate-float {
+            animation: float 6s ease-in-out infinite;
+          }
+        `}</style>
+      </section>
     </div>
   );
 }
