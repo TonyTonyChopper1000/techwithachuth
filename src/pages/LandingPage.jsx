@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter, FaCode, FaDatabase, FaChartBar, FaBrain, FaPython, FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaServer } from 'react-icons/fa';
 import { SiTensorflow, SiTableau, SiMongodb, SiDocker, SiKubernetes, SiJupyter, SiPandas, SiScikitlearn, SiPytorch, SiPostgresql, SiRedis, SiJenkins } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,12 +31,6 @@ export default function LandingPage() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Mock Link component for demo
-  const Link = ({ to, children, className, ...props }) => (
-    <a href={to} className={className} {...props}>
-      {children}
-    </a>
-  );
 
   const skills = [
     { name: 'Python', icon: FaPython, color: 'from-blue-400 to-blue-600', delay: 0.1, category: 'language' },
