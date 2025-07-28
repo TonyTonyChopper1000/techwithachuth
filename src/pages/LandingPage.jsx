@@ -127,7 +127,7 @@ export default function LandingPage() {
               whileHover={{ scale: 1.05 }}
             >
               <Link to="/">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'cursive', letterSpacing: '1px' }}>
                   Achuth Dintakurthi
                 </h1>
               </Link>
@@ -237,7 +237,7 @@ export default function LandingPage() {
                 transition={{ delay: 0.2 }}
               >
                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                  Person Who Belives 
+                  Data Liberation 
                 </span>
                 <motion.span 
                   className="block text-gray-900"
@@ -245,7 +245,7 @@ export default function LandingPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Data is Everything 
+                  Warrior
                 </motion.span>
               </motion.h1>
               
@@ -445,7 +445,7 @@ export default function LandingPage() {
                   <div className="relative w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full p-[3px]">
                     <div className="w-full h-full bg-white rounded-full p-2 shadow-2xl">
                       <motion.img 
-                        src="https://free-3dtextureshd.com/wp-content/uploads/2025/01/96.jpg.webp" 
+                        src="https://miro.medium.com/v2/resize:fit:1200/0*j7sVnq-dE0XWdS12.jpeg" 
                         alt="Profile" 
                         className="w-full h-full object-cover rounded-full"
                         whileHover={{ 
