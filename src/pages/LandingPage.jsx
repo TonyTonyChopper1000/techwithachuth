@@ -51,7 +51,7 @@ export default function LandingPage() {
     {
       icon: FaChartBar,
       title: 'Data Science',
-      description: 'Extracting insights from complex datasets using statistical analysis and ML',
+      description: 'Extracting insights from data using statistical analysis and Building the ML & DL Models',
       color: 'from-purple-500 to-pink-600',
       gradient: 'bg-gradient-to-br'
     },
@@ -285,9 +285,8 @@ export default function LandingPage() {
                 transition={{ delay: 1 }}
               >
                 {[
-                  { icon: FaGithub, href: '#', label: 'GitHub' },
-                  { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-                  { icon: FaTwitter, href: '#', label: 'Twitter' }
+                  { icon: FaGithub, href: 'https://github.com/Achuth-AA', label: 'GitHub' },
+                  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/achuth-dintakurthi-%F0%9F%87%AE%F0%9F%87%B3-4583171a5/', label: 'LinkedIn' },
                 ].map((social, index) => (
                   <motion.a
                     key={social.label}
@@ -440,7 +439,7 @@ export default function LandingPage() {
                   <div className="relative w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full p-[3px]">
                     <div className="w-full h-full bg-white rounded-full p-2 shadow-2xl">
                       <motion.img 
-                        src="https://miro.medium.com/v2/resize:fit:1200/0*j7sVnq-dE0XWdS12.jpeg" 
+                        src="https://i.pinimg.com/736x/9e/9f/66/9e9f66e90efe97486b8c9668946a9740.jpg" 
                         alt="Profile" 
                         className="w-full h-full object-cover rounded-full"
                         whileHover={{ 
