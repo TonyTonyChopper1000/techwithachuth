@@ -659,7 +659,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             Let's Build Something
-            <span className="block bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent h-[55px]">
               Amazing Together
             </span>
           </motion.h2>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaSearch, FaFilter, FaCode, FaStar, FaTrophy, FaEye } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaSearch, FaFilter, FaCode, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export default function Works() {
@@ -22,99 +22,21 @@ export default function Works() {
   const projects = [
     {
       id: 1,
-      title: 'AI-Powered Data Analytics Platform',
-      description: 'A comprehensive platform for real-time data analysis using machine learning algorithms.',
-      tech: ['Python', 'TensorFlow', 'React', 'PostgreSQL'],
-      category: 'machine-learning',
-      image: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=AI+Analytics',
-      github: '#',
-      demo: '#',
-      stars: 45
-    },
-    {
-      id: 2,
-      title: 'Reinforcement Learning Trading Bot',
-      description: 'An autonomous trading system that learns market patterns using deep Q-learning.',
-      tech: ['Python', 'PyTorch', 'Docker', 'AWS'],
-      category: 'reinforcement-learning',
-      image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Trading+Bot',
-      github: '#',
-      demo: '#',
-      stars: 32
-    },
-    {
-      id: 3,
-      title: 'Full-Stack E-commerce Platform',
-      description: 'A modern e-commerce solution with microservices architecture and real-time features.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Kubernetes'],
+      title: 'BlueChess',
+      description: 'Chess.com replica',
+      tech: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
       category: 'web-development',
-      image: 'https://via.placeholder.com/400x250/ec4899/ffffff?text=E-commerce',
+      image: 'https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       github: '#',
-      demo: '#',
-      stars: 28
+      demo: '#'
     }
   ];
 
-  const linkedinPosts = [
-    {
-      id: 1,
-      title: 'The Future of Data Science in 2024',
-      excerpt: 'Exploring emerging trends in AI and machine learning that will shape the industry...',
-      likes: 156,
-      comments: 23,
-      date: '2024-01-15',
-      url: '#'
-    },
-    {
-      id: 2,
-      title: 'Building Scalable ML Pipelines',
-      excerpt: 'Best practices for creating production-ready machine learning systems...',
-      likes: 89,
-      comments: 12,
-      date: '2024-01-10',
-      url: '#'
-    }
-  ];
+  const linkedinPosts = [];
 
-  const githubRepos = [
-    {
-      id: 1,
-      name: 'data-pipeline-framework',
-      description: 'A flexible framework for building scalable data processing pipelines',
-      language: 'Python',
-      stars: 67,
-      forks: 12,
-      url: '#'
-    },
-    {
-      id: 2,
-      name: 'ml-model-registry',
-      description: 'Version control and deployment system for machine learning models',
-      language: 'TypeScript',
-      stars: 43,
-      forks: 8,
-      url: '#'
-    }
-  ];
+  const githubRepos = [];
 
-  const achievements = [
-    {
-      id: 1,
-      title: 'AWS Certified Solutions Architect',
-      organization: 'Amazon Web Services',
-      date: '2023-12-15',
-      type: 'certification',
-      icon: FaTrophy
-    },
-    {
-      id: 2,
-      title: 'Winner - Data Science Hackathon 2023',
-      organization: 'Tech Innovation Summit',
-      date: '2023-11-20',
-      type: 'award',
-      icon: FaStar
-    }
-  ];
+  const achievements = [];
 
   const sections = [
     { id: 'projects', label: 'Projects', count: projects.length },
@@ -426,8 +348,13 @@ export default function Works() {
                 {/* Render different card types based on section */}
                 {activeSection === 'projects' && (
                   <>
-                    <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-600 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                    <div className="h-48 relative overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                       <div className="absolute bottom-4 left-4">
                         <div className="flex gap-2">
                           <a href={item.github} className="p-2 bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-all">
@@ -449,11 +376,7 @@ export default function Works() {
                           </span>
                         ))}
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1">
-                          <FaStar className="text-yellow-500" />
-                          <span className="text-sm text-gray-600">{item.stars}</span>
-                        </div>
+                      <div className="flex items-center justify-end">
                         <span className="text-sm text-gray-500 capitalize">{item.category.replace('-', ' ')}</span>
                       </div>
                     </div>
@@ -490,10 +413,7 @@ export default function Works() {
                     <p className="text-gray-600 mb-4">{item.description}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex gap-4">
-                        <div className="flex items-center gap-1">
-                          <FaStar className="text-yellow-500" />
-                          <span className="text-sm text-gray-600">{item.stars}</span>
-                        </div>
+                        <span className="text-sm text-gray-600">{item.stars} stars</span>
                         <span className="text-sm text-gray-600">{item.forks} forks</span>
                       </div>
                       <a href={item.url} className="text-blue-600 hover:text-blue-800 transition-colors">
